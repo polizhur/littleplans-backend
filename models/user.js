@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      user.hasMany(models.activity);
+      user.belongsToMany(models.activity, {
+        through: "userActivities",
+        foreignKey: "userId",
+      });
     }
   }
   user.init(
