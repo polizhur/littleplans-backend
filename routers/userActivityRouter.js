@@ -1,6 +1,9 @@
 const { Router } = require("express");
 const authMiddleware = require("../auth/middleware");
 const UserActivity = require("../models").userActivity;
+const Activity = require("../models").activity;
+const Address = require("../models").address;
+const Category = require("../models").category;
 
 const router = new Router();
 
@@ -49,11 +52,23 @@ router.post("/", authMiddleware, async (req, res, next) => {
         .status(400)
         .send({ message: "An activityId must be provided" });
     }
+    const specificActivity = await Activity.findByPk(activityId, {
+      include: [Address, Category],
+    });
+    if (!specificActivity) {
+      return res.status(400).send({ message: "Activity not found" });
+    }
     const userActivity = await UserActivity.create({
       activityId,
       userId,
     });
-    res.status(200).send({ message: "Activity added", userActivity });
+    res.status(200).send({
+      message: "Activity added",
+      userActivity: {
+        ...userActivity,
+        activity: specificActivity,
+      },
+    });
   } catch (e) {
     next(e);
   }
