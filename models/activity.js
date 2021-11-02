@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: { type: DataTypes.STRING, allowNull: false },
       imageUrl: { type: DataTypes.STRING, allowNull: false },
+      description: { type: DataTypes.TEXT, allowNull: false },
       date: { type: DataTypes.DATE, allowNull: false },
       duration: { type: DataTypes.INTEGER, allowNull: false },
       ageGroup: { type: DataTypes.INTEGER, allowNull: false },
