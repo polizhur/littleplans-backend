@@ -8,7 +8,7 @@ module.exports = {
         {
           street: "Schakelstraat",
           number: 2,
-          postcode: 1014,
+          postcode: "1014 AW",
           city: "Amsterdam",
           country: "The Netherlands",
           longitude: 4.84944,
@@ -20,7 +20,7 @@ module.exports = {
         {
           street: "Oosterdok",
           number: 2,
-          postcode: 1011,
+          postcode: "1011 VX",
           city: "Amsterdam",
           country: "The Netherlands",
           longitude: 4.91208,
@@ -32,7 +32,7 @@ module.exports = {
         {
           street: "Gabriël Metsustraat",
           number: 16,
-          postcode: 1071,
+          postcode: "1071 EB",
           city: "Amsterdam",
           country: "The Netherlands",
           longitude: 4.88182,
@@ -44,7 +44,7 @@ module.exports = {
         {
           street: "Marnixplein",
           number: 1,
-          postcode: 1015,
+          postcode: "1015 ZN",
           city: "Amsterdam",
           country: "The Netherlands",
           longitude: 4.87848,
@@ -56,7 +56,7 @@ module.exports = {
         {
           street: "Karel du Jardinstraat",
           number: 63,
-          postcode: 1073,
+          postcode: "1073 TD",
           city: "Amsterdam",
           country: "The Netherlands",
           longitude: 4.89675,
@@ -68,7 +68,7 @@ module.exports = {
         {
           street: "Amstel",
           number: 3,
-          postcode: 1011,
+          postcode: "1011 PN",
           city: "Amsterdam",
           country: "The Netherlands",
           longitude: 4.89675,
