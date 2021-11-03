@@ -28,8 +28,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      ageGroup: {
+      ageGroupId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "ageGroups",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
         allowNull: false,
       },
       capacity: {

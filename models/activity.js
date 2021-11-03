@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       activity.belongsTo(models.user);
       activity.belongsTo(models.category);
+      activity.belongsTo(models.ageGroup);
       activity.hasOne(models.address);
       activity.belongsToMany(models.user, {
         through: "userActivities",
@@ -25,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       description: { type: DataTypes.TEXT, allowNull: false },
       date: { type: DataTypes.DATE, allowNull: false },
       duration: { type: DataTypes.INTEGER, allowNull: false },
-      ageGroup: { type: DataTypes.INTEGER, allowNull: false },
       capacity: { type: DataTypes.INTEGER, allowNull: false },
       isParentRequired: { type: DataTypes.BOOLEAN, allowNull: false },
     },
