@@ -6,6 +6,8 @@ const authRouter = require("./routers/auth");
 const authMiddleWare = require("./auth/middleware");
 const activityRouter = require("./routers/activityRouter");
 const userActivityRouter = require("./routers/userActivityRouter");
+const categoryRouter = require("./routers/categoryRouter");
+const ageGroupRouter = require("./routers/ageGroupRouter");
 
 const app = express();
 /**
@@ -130,6 +132,10 @@ app.use("/", authRouter);
 app.use("/activities", activityRouter);
 
 app.use("/userActivities", userActivityRouter);
+
+app.use("/categories", categoryRouter);
+
+app.use("/ageGroups", ageGroupRouter);
 
 // Listen for connections on specified port (default is port 4000)
 
