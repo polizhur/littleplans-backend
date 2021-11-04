@@ -26,7 +26,7 @@ router.post("/login", async (req, res, next) => {
       include: [
         {
           model: Activity,
-          through: { attributes: [] },
+          through: "userActivities",
           include: [Address, AgeGroup],
         },
       ],
@@ -38,17 +38,18 @@ router.post("/login", async (req, res, next) => {
       });
     }
 
-    const activities = await Activity.findAll({
-      where: { userId: user.id },
-      include: [Address, AgeGroup],
-    });
+    // const activities = await Activity.findAll({
+    //   where: { userId: user.id },
+    //   include: [Address, AgeGroup],
+    // });
 
     delete user.dataValues["password"]; // don't send back the password hash
     const token = toJWT({ userId: user.id });
     return res.status(200).send({
       token,
+      // user,
       ...user.dataValues,
-      activities: [...user.dataValues.activities, ...activities],
+      // activities: [...user.dataValues.activities, ...activities],
     });
   } catch (error) {
     console.log(error);
@@ -59,7 +60,9 @@ router.post("/login", async (req, res, next) => {
 router.post("/signup", async (req, res) => {
   const { email, password, name, isProvider } = req.body;
   if (!email || !password || !name) {
-    return res.status(400).send("Please provide an email, password and a name");
+    return res
+      .status(400)
+      .send("Please, provide an email, password and a name");
   }
 
   try {
@@ -94,21 +97,17 @@ router.get("/me", authMiddleware, async (req, res) => {
     include: [
       {
         model: Activity,
-        through: { attributes: [] },
+        through: "userActivities",
         include: [Address, AgeGroup],
       },
     ],
   });
 
-  const activities = await Activity.findAll({
-    where: { userId: user.id },
-    include: [Address, AgeGroup],
-  });
   // don't send back the password hash
   delete user.dataValues["password"];
   res.status(200).send({
     ...user.dataValues,
-    activities: [...user.dataValues.activities, ...activities],
+    activities: [...user.dataValues.activities],
   });
 });
 

@@ -10,6 +10,7 @@ const router = new Router();
 router.get("/", async (req, res, next) => {
   const activities = await Activity.findAll({
     include: [Address, AgeGroup],
+    order: [["date", "asc"]],
   });
   res.json(activities);
 });
@@ -52,87 +53,85 @@ router.post("/", auth, async (req, res, next) => {
     } = req.body;
 
     if (!title) {
-      return res.status(400).send({ message: "An activity must have a title" });
+      return res.status(400).send({ message: "Please, provide a valid title" });
     }
 
     if (!imageUrl) {
-      return res
-        .status(400)
-        .send({ message: "An activity must have an image" });
+      return res.status(400).send({ message: "Please, provide a valid image" });
     }
 
     if (!categoryId) {
       return res
         .status(400)
-        .send({ message: "An activity must have an catigory" });
+        .send({ message: "Please, provide a valid category" });
     }
 
     if (!street) {
       return res
         .status(400)
-        .send({ message: "An activity must have an address" });
+        .send({ message: "Please, provide a valid address" });
     }
 
     if (!number) {
       return res
         .status(400)
-        .send({ message: "An activity must have a house number" });
+        .send({ message: "Please, provide a valid house number" });
     }
 
     if (!postcode) {
       return res
         .status(400)
-        .send({ message: "An activity must have a postcode" });
+        .send({ message: "Please, provide a valid postcode" });
     }
 
     if (!city) {
-      return res.status(400).send({ message: "An activity must have a city" });
+      return res.status(400).send({ message: "Please, provide a valid city" });
     }
 
     if (!country) {
       return res
         .status(400)
-        .send({ message: "An activity must have a country" });
+        .send({ message: "Please, provide a valid country" });
     }
 
     if (!longitude) {
       return res
         .status(400)
-        .send({ message: "An activity must have a longitude" });
+        .send({ message: "Please, provide a valid longitude" });
     }
 
     if (!latitude) {
       return res
         .status(400)
-        .send({ message: "An activity must have a latitude" });
+        .send({ message: "Please, provide a valid latitude" });
     }
 
     if (!description) {
       return res
         .status(400)
-        .send({ message: "An activity must have a description" });
+        .send({ message: "Please, provide a valid description" });
     }
 
     if (!date) {
-      return res.status(400).send({ message: "An activity must have a date" });
+      return res.status(400).send({ message: "Please, provide a valid date" });
     }
 
     if (!duration) {
       return res
         .status(400)
-        .send({ message: "An activity must have duration" });
+        .send({ message: "Please, provide a valid duration" });
     }
 
     if (!capacity) {
       return res
         .status(400)
-        .send({ message: "An activity must have a capacity" });
+        .send({ message: "Please, provide a valid capacity" });
     }
 
     if (!ageGroupId) {
       return res
         .status(400)
-        .send({ message: "An activity must have an age group" });
+        .send({ message: "Please, provide a valid age group" });
     }
 
     const newActivity = await Activity.create({

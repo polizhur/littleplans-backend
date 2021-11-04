@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      activity.belongsTo(models.user);
       activity.belongsTo(models.category);
       activity.belongsTo(models.ageGroup);
       activity.hasOne(models.address);

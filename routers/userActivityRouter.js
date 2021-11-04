@@ -7,22 +7,16 @@ const Category = require("../models").category;
 
 const router = new Router();
 
-router.delete("/:id", authMiddleware, async (req, res, next) => {
-  try {
-    const userActivityId = parseInt(req.params.id);
-    const specificUserActivity = await UserActivity.findByPk(userActivityId);
-    const loggedInUserId = req.user.id;
-    const activityUserId = specificUserActivity.userId;
-    if (loggedInUserId != activityUserId) {
-      return res
-        .status(400)
-        .send({ message: "Activity does not belong to this user" });
-    }
-    specificUserActivity.destroy();
-    res.status(200).send({ message: "Activity deleted" });
-  } catch (e) {
-    next(e);
-  }
+router.get("/me", authMiddleware, async (req, res, next) => {
+  const userId = parseInt(req.params.id);
+  const userActivities = await UserActivity.findAll({
+    where: {
+      userId: userId,
+    },
+    include: [Address, Category, AgeGroup],
+  });
+  return userActivities;
+  return "hai";
 });
 
 router.delete("/:id", authMiddleware, async (req, res, next) => {
