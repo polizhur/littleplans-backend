@@ -4,6 +4,7 @@ const UserActivity = require("../models").userActivity;
 const Activity = require("../models").activity;
 const Address = require("../models").address;
 const Category = require("../models").category;
+const AgeGroup = require("../models").ageGroup;
 
 const router = new Router();
 
@@ -16,7 +17,7 @@ router.get("/me", authMiddleware, async (req, res, next) => {
     include: [Address, Category, AgeGroup],
   });
   return userActivities;
-  return "hai";
+  //return "hai";
 });
 
 router.delete("/:id", authMiddleware, async (req, res, next) => {
@@ -47,7 +48,7 @@ router.post("/", authMiddleware, async (req, res, next) => {
         .send({ message: "An activityId must be provided" });
     }
     const specificActivity = await Activity.findByPk(activityId, {
-      include: [Address, Category],
+      include: [Address, Category, AgeGroup],
     });
     if (!specificActivity) {
       return res.status(400).send({ message: "Activity not found" });
@@ -58,10 +59,7 @@ router.post("/", authMiddleware, async (req, res, next) => {
     });
     res.status(200).send({
       message: "Activity added",
-      userActivity: {
-        ...userActivity,
-        activity: specificActivity,
-      },
+      activity: specificActivity,
     });
   } catch (e) {
     next(e);
