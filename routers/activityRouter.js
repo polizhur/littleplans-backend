@@ -165,7 +165,7 @@ router.post("/", auth, async (req, res, next) => {
     return res.status(201).send({
       message: "Activity created",
       activity: {
-        ...newActivity,
+        ...newActivity.dataValues,
         address: newAddress,
         ageGroup: ageGroup,
         category: category,
