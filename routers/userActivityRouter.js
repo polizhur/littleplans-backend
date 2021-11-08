@@ -8,18 +8,6 @@ const AgeGroup = require("../models").ageGroup;
 
 const router = new Router();
 
-// router.get("/me", authMiddleware, async (req, res, next) => {
-//   const userId = parseInt(req.params.id);
-//   const userActivities = await UserActivity.findAll({
-//     where: {
-//       userId: userId,
-//     },
-//     include: [Address, Category, AgeGroup],
-//   });
-//   return userActivities;
-//   //return "hai";
-// });
-
 router.delete("/:id", authMiddleware, async (req, res, next) => {
   try {
     const activityId = parseInt(req.params.id);
@@ -46,11 +34,23 @@ router.post("/", authMiddleware, async (req, res, next) => {
   try {
     const userId = req.user.id;
     const { activityId } = req.body;
+
+    // check that activityId was provided
     if (!activityId) {
       return res
         .status(400)
         .send({ message: "An activityId must be provided" });
     }
+
+    //check that the activity isn't added already
+    const addedActivity = await UserActivity.findOne({
+      where: { userId: userId, activityId: activityId },
+    });
+    if (addedActivity) {
+      return res.status(400).send({ message: "Activity was added already" });
+    }
+
+    //check that the activity exists
     const specificActivity = await Activity.findByPk(activityId, {
       include: [Address, Category, AgeGroup],
     });
