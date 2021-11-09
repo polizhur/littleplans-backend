@@ -9,7 +9,7 @@ const router = new Router();
 
 router.get("/", async (req, res, next) => {
   const activities = await Activity.findAll({
-    include: [Address, AgeGroup],
+    include: [Address, Category, AgeGroup],
     order: [["date", "asc"]],
   });
   res.json(activities);

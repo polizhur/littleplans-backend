@@ -8,6 +8,7 @@ const UserActivity = require("../models/").userActivity;
 const Activity = require("../models").activity;
 const Address = require("../models").address;
 const AgeGroup = require("../models").ageGroup;
+const Category = require("../models").category;
 
 const router = new Router();
 
@@ -27,7 +28,7 @@ router.post("/login", async (req, res, next) => {
         {
           model: Activity,
           through: "userActivities",
-          include: [Address, AgeGroup],
+          include: [Address, AgeGroup, Category],
         },
       ],
     });
@@ -98,7 +99,7 @@ router.get("/me", authMiddleware, async (req, res) => {
       {
         model: Activity,
         through: "userActivities",
-        include: [Address, AgeGroup],
+        include: [Address, AgeGroup, Category],
       },
     ],
   });
