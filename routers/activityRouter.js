@@ -176,4 +176,27 @@ router.post("/", auth, async (req, res, next) => {
   }
 });
 
+router.delete("/:id", auth, async (req, res, next) => {
+  try {
+    const activityId = parseInt(req.params.id);
+
+    const specificActivity = await Activity.findByPk(activityId);
+
+    if (!specificActivity) {
+      return res.status(404).send({ message: "Activity not found" });
+    }
+
+    if (specificActivity.userId !== req.user.id) {
+      return res
+        .status(403)
+        .send({ message: "Activity doesn't belong to the user" });
+    }
+
+    specificActivity.destroy();
+    res.status(200).send({ message: "Activity deleted" });
+  } catch (e) {
+    next(e);
+  }
+});
+
 module.exports = router;

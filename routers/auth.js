@@ -28,6 +28,12 @@ router.post("/login", async (req, res, next) => {
         {
           model: Activity,
           through: "userActivities",
+          as: "activities",
+          include: [Address, AgeGroup, Category],
+        },
+        {
+          model: Activity,
+          as: "providerActivities",
           include: [Address, AgeGroup, Category],
         },
       ],
@@ -50,7 +56,8 @@ router.post("/login", async (req, res, next) => {
       token,
       // user,
       ...user.dataValues,
-      // activities: [...user.dataValues.activities, ...activities],
+      //activities: [...user.dataValues.activities, ...activities],
+      //providerActivities: [...user.dataValues.providerActivities],
     });
   } catch (error) {
     console.log(error);
@@ -99,6 +106,12 @@ router.get("/me", authMiddleware, async (req, res) => {
       {
         model: Activity,
         through: "userActivities",
+        as: "activities",
+        include: [Address, AgeGroup, Category],
+      },
+      {
+        model: Activity,
+        as: "providerActivities",
         include: [Address, AgeGroup, Category],
       },
     ],
@@ -109,6 +122,7 @@ router.get("/me", authMiddleware, async (req, res) => {
   res.status(200).send({
     ...user.dataValues,
     activities: [...user.dataValues.activities],
+    providerActivities: [...user.dataValues.providerActivities],
   });
 });
 
