@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const loggerMiddleWare = require("morgan");
 const corsMiddleWare = require("cors");
 const { PORT } = require("./config/constants");
@@ -10,6 +11,7 @@ const categoryRouter = require("./routers/categoryRouter");
 const ageGroupRouter = require("./routers/ageGroupRouter");
 
 const app = express();
+app.use(cors());
 /**
  * Middlewares: DO NOT REGISTER ANY ROUTERS BEFORE THE MIDDLEWARES
  *
